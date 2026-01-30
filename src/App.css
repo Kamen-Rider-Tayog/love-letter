@@ -1,0 +1,440 @@
+:root {
+  --primary: #fff;
+  --envelope-pink: #ffb6c1;
+  --envelope-dark-pink: #ff9aac;
+  --envelope-light-pink: #ffd1dc;
+  --bg-color: #2a2d43;
+  --bg-secondary: #3a3f5e;
+  --heart-green: #98fb98;
+  --heart-dark-green: #90ee90;
+  --stamp-color: #ff6b8b;
+  --letter-bg: #fff9f9;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --txt-color: #444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+}
+
+.container {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+/* Envelope Wrapper - Conditional background */
+.envelope-wrapper {
+  position: relative;
+  width: 300px;
+  height: 230px;
+  cursor: pointer;
+  box-shadow: 0 0 40px var(--shadow-color);
+  transition: background 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: var(--envelope-pink);
+}
+
+.envelope-wrapper.flipped-wrapper {
+  background: var(--bg-secondary);
+}
+
+/* Envelope */
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.envelope.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Front of Envelope */
+.envelope-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.envelope-top {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-top: 130px solid var(--envelope-dark-pink);
+  transform-origin: top;
+  transition: all 0.5s ease-in-out 0.7s;
+}
+
+.envelope-front::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 0px;
+  height: 0px;
+  border-top: 130px solid transparent;
+  border-right: 150px solid var(--envelope-light-pink);
+  border-bottom: 100px solid var(--envelope-light-pink);
+  border-left: 150px solid var(--envelope-light-pink);
+}
+
+.letter-inside {
+  position: absolute;
+  right: 20%;
+  bottom: 0;
+  width: 54%;
+  height: 80%;
+  background: var(--primary);
+  text-align: center;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 0 5px var(--shadow-color);
+  padding: 20px 10px;
+  z-index: 1;
+  border-radius: 2px;
+}
+
+.text {
+  font-family: 'Georgia', serif;
+  color: var(--txt-color);
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.text p {
+  text-align: center;
+}
+
+.text strong {
+  font-size: 16px;
+  color: #e91e63;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Back of Envelope */
+.envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: var(--envelope-pink);
+  transform: rotateY(180deg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 2px;
+}
+
+.envelope-back-content {
+  height: 100%;
+  position: relative;
+}
+
+.stamp {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: var(--stamp-color);
+  border: 2px dashed white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stamp-design {
+  text-align: center;
+  color: white;
+  font-family: 'Courier New', monospace;
+}
+
+.stamp-text {
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: block;
+}
+
+.stamp-heart {
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.recipient-info {
+  padding: 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipient-info {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 45%;
+}
+
+.recipient-label {
+  font-size: 10px;
+  color: #666;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.recipient-name {
+  font-weight: bold;
+  font-size: 14px;
+  color: #e91e63;
+  margin-bottom: 2px;
+}
+
+.recipient-address {
+  font-size: 8px;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.recipient-zip {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--stamp-color);
+  margin-top: 4px;
+}
+
+/* Heart - Soft Green with 180deg rotation */
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  background: var(--heart-green);
+  z-index: 4;
+  transform: translate(-50%, -20%) rotate(45deg);
+  transition: transform 0.5s ease-in-out 1s;
+  box-shadow: 0 1px 6px var(--shadow-color);
+  cursor: pointer;
+}
+
+.heart:before, 
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: var(--heart-green);
+  border-radius: 50%;
+}
+
+.heart:before {
+  top: -9.5px;
+}
+
+.heart:after {
+  right: 9.5px;
+}
+
+@keyframes heartbeat {
+  0%, 100% { 
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+  }
+  50% { 
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.1);
+  }
+}
+
+/* Letter Popup */
+.letter-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(42, 45, 67, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease 5s forwards;
+  pointer-events: none;
+}
+
+.letter-overlay.visible {
+  pointer-events: all;
+}
+
+.letter-popup {
+  background: var(--letter-bg);
+  width: 90%;
+  max-width: 500px;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  position: relative;
+  animation: slideUp 0.5s ease;
+  border: 2px solid var(--envelope-pink);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: popupAppear 0.5s ease 5s forwards;
+}
+
+.letter-content {
+  color: #333;
+  line-height: 1.6;
+}
+
+.letter-body {
+  font-size: 16px;
+  text-align: justify;
+}
+
+.text-body {
+  text-indent: 30px;
+}
+
+.greeting {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.question {
+  text-align: center;
+  font-size: 20px;
+  color: #e91e63;
+  margin: 25px 0;
+  padding: 15px;
+  background: #fff0f5;
+  border-radius: 8px;
+  border: 1px dashed var(--envelope-pink);
+}
+
+.signature {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 22px;
+  color: #e91e63;
+  margin-top: 30px;
+  text-align: right;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--heart-green);
+  color: var(--bg-color);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  line-height: 1;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+  background: var(--heart-dark-green);
+  transform: scale(1.1) rotate(180deg);
+}
+
+/* New Animations with Delays */
+@keyframes fadeIn {
+  from { 
+    background: rgba(42, 45, 67, 0);
+  }
+  to { 
+    background: rgba(42, 45, 67, 0.95);
+  }
+}
+
+@keyframes popupAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Envelope flap animations when letter is opened */
+.flap .envelope-top {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.flap .letter-inside {
+  bottom: 100px;
+  transform: scale(1.5);
+  transition-delay: 1s;
+}
+
+.flap .heart {
+  transform: rotate(90deg);
+  transition-delay: 0.4s;
+  background: var(--heart-dark-green);
+}
+
+.flap .heart:before,
+.flap .heart:after {
+  background: var(--heart-dark-green);
+}
+
+/* Instruction text - Informational only */
+.envelope-instruction {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px 16px;
+  background: rgba(58, 63, 94, 0.7);
+  border-radius: 20px;
+  white-space: nowrap;
+  z-index: 10;
+  animation: fadeInOut 3s infinite;
+  pointer-events: none; /* Make it non-clickable */
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
