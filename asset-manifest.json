@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/love-letter/static/css/main.92dd16a4.css",
+    "main.js": "/love-letter/static/js/main.30001024.js",
+    "static/js/453.772596cc.chunk.js": "/love-letter/static/js/453.772596cc.chunk.js",
+    "index.html": "/love-letter/index.html",
+    "main.92dd16a4.css.map": "/love-letter/static/css/main.92dd16a4.css.map",
+    "main.30001024.js.map": "/love-letter/static/js/main.30001024.js.map",
+    "453.772596cc.chunk.js.map": "/love-letter/static/js/453.772596cc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.92dd16a4.css",
+    "static/js/main.30001024.js"
+  ]
+}
